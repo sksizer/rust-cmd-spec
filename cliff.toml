@@ -40,12 +40,15 @@ commit_parsers = [
     { message = "^fix", group = "Fixed" },
     { message = "^perf", group = "Performance" },
     { message = "^refactor", group = "Changed" },
+    { message = "^revert", group = "Removed" },
+    { message = "^security", group = "Security" },
     { message = "^chore", skip = true },
     { message = "^docs", skip = true },
     { message = "^style", skip = true },
     { message = "^test", skip = true },
     { message = "^ci", skip = true },
     { message = "^build", skip = true },
+    { message = "^ai", skip = true },
 ]
 tag_pattern = "v[0-9].*"
 sort_commits = "oldest"
