@@ -1,4 +1,5 @@
 allow-branch = ["main"]
+consolidate-commits = true
 pre-release-commit-message = "chore: release v{{version}}"
 publish = false
 push = true
@@ -6,6 +7,7 @@ sign-commit = false
 sign-tag = false
 tag = true
 tag-message = "Release v{{version}}"
+tag-prefix = "v"
 
 # Pre-release hook: generate changelog with git-cliff, stage it, then run
 # semver-checks against the latest tag (skipped if no previous tag exists).
