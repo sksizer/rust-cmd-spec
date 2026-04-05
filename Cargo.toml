@@ -2,6 +2,10 @@
 name = "cmd-spec"
 version = "0.1.0"
 edition = "2024"
+description = "A very simple wrapper around command lines to provide a standard serialization, ergonomic construction and emit tokio or std:process::Cmd objects"
+homepage = "https://www.github.com/sksizer/rust-cmd-spec"
+repository = "https://www.github.com/sksizer/rust-cmd-spec"
+license = "MIT"
 
 [features]
 default = ["serde"]
