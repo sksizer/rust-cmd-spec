@@ -1,43 +1,74 @@
-# Rust Template [![Github Actions][gha-badge]][gha] [![License: MIT][license-badge]][license]
+# cmd-spec
 
-[gha]: https://github.com/PaulRBerg/rust-template/actions
-[gha-badge]: https://github.com/PaulRBerg/rust-template/actions/workflows/ci.yml/badge.svg
-[license]: https://opensource.org/licenses/MIT
-[license-badge]: https://img.shields.io/badge/License-MIT-blue.svg
+A serializable shell command builder. Define commands as data, pass them around, convert to `std::process::Command` (or `tokio::process::Command` with the `tokio` feature) when ready to run.
 
-A template for developing Rust projects, with sensible defaults.
-
-## Getting Started
-
-Click the [`Use this template`](https://github.com/PaulRBerg/rust-template/generate) button at the top of the page to
-create a new repository with this repo as the initial state.
-
-## Features
-
-### Sensible Defaults
-
-This template comes with sensible default configurations in the following files:
-
-```text
-├── .editorconfig
-├── .gitignore
-├── .prettierrc.yml
-├── Cargo.toml
-├── justfile
-└── rustfmt.toml
+```toml
+[dependencies]
+cmd-spec = "0.1"
 ```
-
-### GitHub Actions
-
-This template comes with GitHub Actions pre-configured. Your code will be linted and tested on every push and pull
-request made to the `main` branch.
-
-You can edit the CI script in [.github/workflows/ci.yml](./.github/workflows/ci.yml).
 
 ## Usage
 
-See [The Rust Book](https://doc.rust-lang.org/book/) and [The Cargo Book](https://doc.rust-lang.org/cargo/index.html).
+Fluent builder:
+
+```rust
+let cmd = ShellCommand::new("cargo")
+    .arg("build")
+    .arg("--release")
+    .env("RUST_LOG", "debug")
+    .working_dir("/tmp");
+```
+
+Conditional args with `.mutate()`:
+
+```rust
+let mut cmd = ShellCommand::new("cargo").arg("build").mutate();
+
+if release {
+    cmd.arg("--release");
+}
+
+let cmd = cmd.finish();
+```
+
+Scoped mutation with `.with()` — stays in functional style:
+
+```rust
+let cmd = ShellCommand::new("cargo")
+    .arg("build")
+    .with(|cmd| {
+        if release {
+            cmd.arg("--release");
+        }
+        cmd.env("RUST_LOG", "debug");
+    })
+    .working_dir("/project");
+```
+
+Converting to `std::process::Command`:
+
+```rust
+let cmd = ShellCommand::new("echo").arg("hi");
+let output = std::process::Command::from(&cmd).output()?;
+```
+
+Serde roundtrip (requires `serde` feature, enabled by default):
+
+```rust
+let cmd = ShellCommand::new("ls").arg("-la").working_dir("/home");
+
+let json = serde_json::to_string(&cmd)?;
+let restored: ShellCommand = serde_json::from_str(&json)?;
+assert_eq!(cmd, restored);
+```
+
+## Features
+
+| Feature | Default | What it does |
+| --- | --- | --- |
+| serde | yes | Serialize/Deserialize derives |
+| tokio | no | From<&ShellCommand> for tokio::process::Command |
 
 ## License
 
-This project is licensed under MIT.
+MIT
