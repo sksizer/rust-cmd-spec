@@ -7,6 +7,6 @@ sign-tag = false
 tag = true
 tag-message = "Release v{{version}}"
 
-# Uses the latest git tag as baseline. On first release (no tags), semver-checks
-# is skipped since there is no baseline to compare against.
-pre-release-hook = ["bash", "-c", "if git describe --tags --abbrev=0 >/dev/null 2>&1; then cargo semver-checks --baseline-rev \"$(git describe --tags --abbrev=0)\"; else echo 'semver-checks: no previous tag found, skipping'; fi"]
+# Pre-release hook: generate changelog with git-cliff, stage it, then run
+# semver-checks against the latest tag (skipped if no previous tag exists).
+pre-release-hook = ["bash", "-c", "git-cliff --tag v{{version}} -o CHANGELOG.md && git add CHANGELOG.md && if git describe --tags --abbrev=0 >/dev/null 2>&1; then cargo semver-checks --baseline-rev \"$(git describe --tags --abbrev=0)\"; else echo 'semver-checks: no previous tag found, skipping'; fi"]

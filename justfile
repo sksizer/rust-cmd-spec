@@ -10,6 +10,9 @@ set shell := ["bash", "-euo", "pipefail", "-c"]
 cargo := require("cargo")
 rustc := require("rustc")
 
+# git-cliff: https://git-cliff.org
+git-cliff := require("git-cliff")
+
 # ---------------------------------------------------------------------------- #
 #                                    RECIPES                                   #
 # ---------------------------------------------------------------------------- #
@@ -35,6 +38,14 @@ alias fw := full-write
 # Run tests
 test:
     cargo test
+
+# ---------------------------------------------------------------------------- #
+#                                  CHANGELOG                                   #
+# ---------------------------------------------------------------------------- #
+
+# Generate CHANGELOG.md from git history
+changelog:
+    git-cliff -o CHANGELOG.md
 
 # ---------------------------------------------------------------------------- #
 #                                   RELEASE                                    #
