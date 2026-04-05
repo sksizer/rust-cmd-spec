@@ -16,7 +16,7 @@ jobs:
           toolchain: "nightly"
       - uses: "extractions/setup-just@v3"
       - run: "just full-check"
-      - run: "just tests"
+      - run: "just test"
       - run: | # shell
           echo "## CI result" >> $GITHUB_STEP_SUMMARY
           echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
