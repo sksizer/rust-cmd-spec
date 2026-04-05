@@ -23,9 +23,6 @@ build:
     cargo build
 
 # Run the program
-run:
-    cargo run
-
 # Run all code checks
 full-check:
     cargo fmt --all --check
