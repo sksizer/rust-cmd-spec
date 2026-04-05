@@ -5,14 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
-
-## [0.1.0] - 2026-03-25
+## [0.1.1] - 2026-04-05
 
 ### Added
 
-- `ShellCommand` struct with builder pattern for ergonomic command construction
-- Serialization/deserialization support via optional `serde` feature
-- Conversion to `std::process::Command` and `tokio::process::Command`
-- Mutable handle and scoped mutation API for `ShellCommand`
-- Tokio test support behind `tokio` feature flag
+- add serializable shell command struct with builder pattern and process conversion
+- add mutable handle and scoped mutation API for ShellCommand
+
+### Changed
+
+- make serde optional and add tokio test support
+
+### Fixed
+
+- correct cargo-release template config (#3)
+
