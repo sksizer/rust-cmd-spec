@@ -10,9 +10,6 @@ set shell := ["bash", "-euo", "pipefail", "-c"]
 cargo := require("cargo")
 rustc := require("rustc")
 
-# git-cliff: https://git-cliff.org
-git-cliff := require("git-cliff")
-
 # ---------------------------------------------------------------------------- #
 #                                    RECIPES                                   #
 # ---------------------------------------------------------------------------- #
