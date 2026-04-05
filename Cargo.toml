@@ -1,5 +1,6 @@
 [package]
 name = "cmd-spec"
+authors = ["sksizer"]
 version = "0.1.0"
 edition = "2024"
 description = "A very simple wrapper around command lines to provide a standard serialization, ergonomic construction and emit tokio or std:process::Cmd objects"
