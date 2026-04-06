@@ -37,16 +37,12 @@ test:
     cargo test
 
 # ---------------------------------------------------------------------------- #
-#                                  CHANGELOG                                   #
-# ---------------------------------------------------------------------------- #
-
-# Generate CHANGELOG.md from git history
-changelog:
-    git-cliff -o CHANGELOG.md
-
-# ---------------------------------------------------------------------------- #
 #                                   RELEASE                                    #
 # ---------------------------------------------------------------------------- #
+
+# Generate changelog from conventional commits
+changelog:
+    git-cliff --output CHANGELOG.md
 
 # Check for semver violations against the latest git tag
 semver-check:
