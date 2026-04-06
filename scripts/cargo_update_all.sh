@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOWNSTREAM_FILE="${SCRIPT_DIR}/downstream.txt"
-BRING_UP="${SCRIPT_DIR}/bring_up_to_date.sh"
+CARGO_UPDATE="${SCRIPT_DIR}/cargo_update.sh"
 
 if [[ ! -f "$DOWNSTREAM_FILE" ]]; then
     echo "Error: ${DOWNSTREAM_FILE} not found" >&2
@@ -32,7 +32,7 @@ while IFS= read -r repo_url; do
     echo "Cloning: ${repo_url} -> ${CLONE_PATH}"
     (
         git clone --quiet "$repo_url" "$CLONE_PATH"
-        bash "$BRING_UP" ${ARGS[@]+"${ARGS[@]}"} "$CLONE_PATH"
+        bash "$CARGO_UPDATE" ${ARGS[@]+"${ARGS[@]}"} "$CLONE_PATH"
     ) &
     PIDS+=($!)
     REPOS+=("$repo_url")
