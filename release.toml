@@ -9,6 +9,6 @@ tag = true
 tag-message = "Release v{{version}}"
 tag-prefix = "v"
 
-# Pre-release hook: generate changelog with git-cliff, stage it, then run
-# semver-checks against the latest tag (skipped if no previous tag exists).
-pre-release-hook = ["bash", "-c", "git-cliff --tag v{{version}} -o CHANGELOG.md && git add CHANGELOG.md && if git describe --tags --abbrev=0 >/dev/null 2>&1; then cargo semver-checks --baseline-rev \"$(git describe --tags --abbrev=0)\"; else echo 'semver-checks: no previous tag found, skipping'; fi"]
+# 1. Generate changelog for the new version and stage it for the release commit
+# 2. Run semver-checks against the latest tag (skipped if no prior tags exist)
+pre-release-hook = ["bash", "-c", "git-cliff --tag \"v${NEW_VERSION}\" --output CHANGELOG.md && git add CHANGELOG.md && if git describe --tags --abbrev=0 >/dev/null 2>&1; then cargo semver-checks --baseline-rev \"$(git describe --tags --abbrev=0)\"; else echo 'semver-checks: no previous tag found, skipping'; fi"]
