@@ -72,6 +72,15 @@ release level="patch":
     cargo release {{level}} --execute
 
 # ---------------------------------------------------------------------------- #
+#                               QUALITY CHECK                                  #
+# ---------------------------------------------------------------------------- #
+
+# Run checks with AI-powered auto-fix (dry-run by default; --execute to run)
+quality-check *args:
+    bash scripts/quality_check.sh {{args}}
+alias qc := quality-check
+
+# ---------------------------------------------------------------------------- #
 #                                  TEMPLATE                                    #
 # ---------------------------------------------------------------------------- #
 
@@ -84,15 +93,6 @@ alias butd := bring-up-to-date
 bring-up-to-date-all *args:
     bash scripts/bring_up_to_date_all.sh {{args}}
 alias butda := bring-up-to-date-all
-
-# ---------------------------------------------------------------------------- #
-#                               QUALITY CHECK                                  #
-# ---------------------------------------------------------------------------- #
-
-# Run checks with AI-powered auto-fix (dry-run by default; --execute to run)
-quality-check *args:
-    bash scripts/quality_check.sh {{args}}
-alias qc := quality-check
 
 # ---------------------------------------------------------------------------- #
 #                               CARGO UPDATE                                   #
