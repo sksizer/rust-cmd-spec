@@ -77,22 +77,16 @@ install-tools:
 # ---------------------------------------------------------------------------- #
 #                                   RELEASE                                    #
 # ---------------------------------------------------------------------------- #
+# Releases are automated by release-plz in CI — merge the "chore: release" PR
+# it opens on main. See RELEASE.md. The recipes below are local previews only.
 
-# Generate changelog from conventional commits
+# Generate changelog from conventional commits (local preview; CI regenerates it)
 changelog:
     git-cliff --output CHANGELOG.md
 
 # Check for semver violations against the latest git tag
 semver-check:
     cargo semver-checks --baseline-rev "$(git describe --tags --abbrev=0)"
-
-# Dry-run a release (default: patch bump)
-release-dry-run level="patch":
-    cargo release {{level}} --no-confirm
-
-# Perform a release (patch, minor, or major)
-release level="patch":
-    cargo release {{level}} --execute
 
 # ---------------------------------------------------------------------------- #
 #                               QUALITY CHECK                                  #
