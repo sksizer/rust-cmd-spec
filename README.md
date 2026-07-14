@@ -75,3 +75,5 @@ MIT
 
 ### Source Template
 We generally keep this repository inline with template https://github.com/sksizer/rust-template
+
+Testing release process
